@@ -1,4 +1,7 @@
 {
+	"engines": {
+		"node": "^20.11.1"
+	},
 	"name": "eta",
 	"version": "0.0.1",
 	"scripts": {
