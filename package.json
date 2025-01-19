@@ -6,7 +6,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "pnpm db:deploy && vite build && npm run package",
+		"build": "vite build && npm run package",
 		"preview": "vite preview",
 		"package": "svelte-kit sync && svelte-package && publint",
 		"prepublishOnly": "npm run package",
@@ -17,8 +17,8 @@
 		"db:start": "docker compose up",
 		"db:push": "drizzle-kit push",
 		"db:migrate": "drizzle-kit migrate",
-		"db:studio": "drizzle-kit studio",
-		"db:deploy": "drizzle-kit push --accept-data-loss"
+		"db:studio": "drizzle-kit studio"
+		
 	},
 	"files": [
 		"dist",
