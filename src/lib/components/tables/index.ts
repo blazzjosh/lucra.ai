@@ -1,4 +1,4 @@
-import EmailTable from './EmailTable.svelte';
+import EmailTable from './email-table.svelte';
 
 export { EmailTable };
 
