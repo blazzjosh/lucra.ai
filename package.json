@@ -75,6 +75,7 @@
 		"drizzle-orm": "^0.33.0",
 		"google-auth-library": "^9.15.0",
 		"googleapis": "^144.0.0",
+		"mode-watcher": "^0.5.1",
 		"postgres": "^3.4.4",
 		"svelte-inview": "^4.0.4",
 		"svelte-motion": "^0.12.2",

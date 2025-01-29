@@ -8,7 +8,7 @@ import { eq } from 'drizzle-orm';
 
 export const DELETE: RequestHandler = async ({cookies, locals}) => {
    try {
-    console.log('Logging out server');
+    // console.log('Logging out server');
     const sessionId = cookies.get('session_id');
     if (!sessionId) {
         return json({error: 'No session ID found'}, {status: 401});

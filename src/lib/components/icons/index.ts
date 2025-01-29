@@ -13,6 +13,8 @@ import  Rss from 'lucide-svelte/icons/rss';
 import  Shield from 'lucide-svelte/icons/shield'; 
 import  ChevronRight from 'lucide-svelte/icons/chevron-right'; 
 import  ArrowRight from 'lucide-svelte/icons/arrow-right'; 
+import  Moon from 'lucide-svelte/icons/moon'; 
+import  Sun from 'lucide-svelte/icons/sun'; 
 
 export type Icon  = SvelteComponent;
 
@@ -29,4 +31,6 @@ export const Icons = {
     Shield,
     ChevronRight,
     ArrowRight,
+    Moon,
+    Sun,
 }
