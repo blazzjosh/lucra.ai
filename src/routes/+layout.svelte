@@ -3,4 +3,5 @@
 	let { children } = $props();
 </script>
 
+<!-- <Hero /> -->
 {@render children()}

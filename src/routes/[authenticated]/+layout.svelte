@@ -10,7 +10,7 @@
 	// console.log(data.user);
 
 	const logout = async () => {
-		console.log('Logging out');
+		// console.log('Logging out');
 		const response = await fetch('/api/auth/logout', {
 			method: 'DELETE',
 			headers: {
@@ -38,7 +38,7 @@
 			<Breadcrumb.Root>
 				<Breadcrumb.List>
 					<Breadcrumb.Item>
-						<Breadcrumb.Page>Main</Breadcrumb.Page>
+						<Breadcrumb.Page>Dashboard</Breadcrumb.Page>
 					</Breadcrumb.Item>
 				</Breadcrumb.List>
 			</Breadcrumb.Root>

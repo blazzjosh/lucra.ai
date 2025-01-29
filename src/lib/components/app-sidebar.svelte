@@ -22,7 +22,7 @@
 								<Microscope class="size-7" />
 							</div>
 							<div class="grid flex-1 text-left text-sm leading-tight">
-								<span class="truncate font-semibold">DebitLens</span>
+								<span class="truncate font-semibold">Lucra.ai</span>
 								<span class="truncate text-xs">by SynergyDesk</span>
 							</div>
 						</a>

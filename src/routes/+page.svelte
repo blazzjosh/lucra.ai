@@ -1,3 +1,10 @@
-<h1>Welcome to your Expennse track app</h1>
-<a href="/auth/login">Login</a>
 
+<script lang="ts">
+	import { Hero, PricingSection, CtaSection, Footer, Header } from '$lib/components/landing/index.js';
+</script>
+
+<Header />
+<Hero />
+<PricingSection />
+<CtaSection />
+<Footer />

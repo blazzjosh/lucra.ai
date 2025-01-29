@@ -18,7 +18,6 @@
 		"db:push": "drizzle-kit push",
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio"
-		
 	},
 	"files": [
 		"dist",
@@ -77,7 +76,10 @@
 		"google-auth-library": "^9.15.0",
 		"googleapis": "^144.0.0",
 		"postgres": "^3.4.4",
+		"svelte-inview": "^4.0.4",
+		"svelte-motion": "^0.12.2",
 		"svelte-radix": "^2.0.1",
+		"tailwindcss-animate": "^1.0.7",
 		"zod": "^3.24.1"
 	}
 }
