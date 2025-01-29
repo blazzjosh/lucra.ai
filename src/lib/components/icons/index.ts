@@ -15,6 +15,10 @@ import  ChevronRight from 'lucide-svelte/icons/chevron-right';
 import  ArrowRight from 'lucide-svelte/icons/arrow-right'; 
 import  Moon from 'lucide-svelte/icons/moon'; 
 import  Sun from 'lucide-svelte/icons/sun'; 
+import  EllipsisVertical from 'lucide-svelte/icons/ellipsis-vertical'; 
+import  Eye from 'lucide-svelte/icons/eye'; 
+import  Check from 'lucide-svelte/icons/check'; 
+import  X from 'lucide-svelte/icons/x'; 
 
 export type Icon  = SvelteComponent;
 
@@ -33,4 +37,8 @@ export const Icons = {
     ArrowRight,
     Moon,
     Sun,
+    EllipsisVertical,
+    Eye,
+    Check,
+    X,
 }

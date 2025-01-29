@@ -15,7 +15,6 @@
 
 <div class="flex h-screen w-full flex-col items-center justify-center gap-4 px-4">
 	<Header />
-	
 	<LoginForm {handleGoogleLogin} />
 </div>
 <Footer />	

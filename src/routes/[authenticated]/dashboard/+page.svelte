@@ -4,18 +4,15 @@
 	import * as Command from '$lib/components/ui/command/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import { Badge } from '$lib/components/ui/badge/index.js';
-	import Check from 'lucide-svelte/icons/check';
-	import Eye from 'lucide-svelte/icons/eye';
-	import X from 'lucide-svelte/icons/x';
-	import { formatMoney } from '$lib/utils.js';
 	import { TotalSpendCard, SpendByCategoryCard } from './components/index.js';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { enhance } from '$app/forms';
+
+	import { EmailTable } from '$lib/components/tables/index.js';
+
 
 	let { form, data } = $props();
 
@@ -30,7 +27,7 @@
 		data.emails.map((email: { tag: {id:string, name:string} | null }) => {
 			// Only look for a matching tag if email.ex_tag exists
 			if (email.tag) {
-				const matchingTag = data.ex_tags.find((tag: { id: string }) => tag.id === email.tag?.id);
+				const matchingTag = data.emailTags.find((tag: { id: string }) => tag.id === email.tag?.id);
 				return matchingTag || { id: '', name: 'No tag' };
 			}
 			// Return null/empty state if no ex_tag exists
@@ -43,6 +40,7 @@
 	let dialogOpen = $state(false);
 
 	const handleSelect = async (email: any, tag: Tag, index: number) => {
+		console.log(email);
 		try {
 			const res = await fetch('/api/debit-emails', {
 				method: 'PATCH',
@@ -149,7 +147,8 @@
 					</Button>
 				</div>
 			</div>
-			{#each data.emails as email, i}
+			<EmailTable emails={data.emails} emailTags={data.emailTags} {selectedLabels} {handleSelect} {closeAndFocusTrigger} />	
+			 <!-- {#each data.emails as email, i}
 				<div
 					class="flex w-full flex-col items-start justify-between rounded-md border bg-white px-4 py-3 sm:flex-row sm:items-center"
 				>
@@ -223,7 +222,7 @@
 						</DropdownMenu.Root>
 					</div>
 				</div>
-			{/each}
+			{/each}  -->
 		</div>
 	</div>
 </div>

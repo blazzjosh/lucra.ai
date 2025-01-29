@@ -78,7 +78,7 @@ export const load: PageServerLoad = async ({ fetch, locals }) => {
 
         return {
             emails: emails.data,
-            ex_tags: ex_tags.data,
+            emailTags: ex_tags.data,
             analytics: analytics.data
         }
     };
