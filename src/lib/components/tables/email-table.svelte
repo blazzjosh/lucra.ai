@@ -1,5 +1,4 @@
 <script lang="ts">
-  import ChevronDown from "lucide-svelte/icons/chevron-down";
   import {
     type ColumnDef,
     type ColumnFiltersState,
@@ -37,7 +36,7 @@
     tag: string;
   };
 
-  let { emails, emailTags, selectedLabels, handleSelect, closeAndFocusTrigger } = $props();
+  let { emails, emailTags, selectedLabels, handleSelect, closeAndFocusTrigger, openStates, triggerRefs } = $props();
 
   // Define Table Columns with Rendered Components
   const columns: ColumnDef<EmailTransaction>[] = [
@@ -83,7 +82,8 @@
       header: "Tag",
       cell: ({ row }: { row: any }) =>
         renderComponent(EmailTag, {
-          tag: row.original.tag
+          selectedLabels: selectedLabels,
+          emailIndex: row.index
         })
     },
     {
@@ -100,12 +100,17 @@
       enableHiding: false,
       cell: ({ row }: { row: any }) =>
         renderComponent(RowAction, {
+          row: row,
+          emailId: row.original.email_id,
           id: row.original.id,
           emailTags: emailTags,
           selectedLabels: selectedLabels,
-          i: row.index,
+          emailIndex: row.index,
+          tagIndex: row.index,
           handleSelect: handleSelect,
-          closeAndFocusTrigger: closeAndFocusTrigger
+          closeAndFocusTrigger: closeAndFocusTrigger,
+          openStates: openStates,
+          triggerRefs:triggerRefs
         })
     }
   ];

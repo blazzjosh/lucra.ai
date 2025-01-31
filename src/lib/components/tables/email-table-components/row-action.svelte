@@ -4,39 +4,37 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 
-	let { id, emailTags, selectedLabels, i, handleSelect, closeAndFocusTrigger } = $props();
+	let {row, emailId, id, triggerRefs, emailTags, selectedLabels, emailIndex, tagIndex, handleSelect, closeAndFocusTrigger, openStates } = $props();
 
-    // console.log(emailTags);
 </script>
 
-<DropdownMenu.Root>
-	<DropdownMenu.Trigger>
+<DropdownMenu.Root bind:open={openStates[emailIndex]}>
+	<DropdownMenu.Trigger bind:ref={triggerRefs[emailIndex]}>
 		{#snippet child({ props })}
-			<Button {...props} variant="ghost" size="icon" class="relative size-8 p-0">
-				<span class="sr-only">Open menu</span>
+			<Button variant="ghost" size="sm" {...props} aria-label="Open menu">
 				<EllipsisVertical />
 			</Button>
 		{/snippet}
 	</DropdownMenu.Trigger>
-	<DropdownMenu.Content>
+	<DropdownMenu.Content class="w-[200px]" align="end">
 		<DropdownMenu.Group>
 			<DropdownMenu.GroupHeading>Actions</DropdownMenu.GroupHeading>
 			<DropdownMenu.Sub>
-				<DropdownMenu.SubTrigger>Tag Transaction</DropdownMenu.SubTrigger>
+				<DropdownMenu.SubTrigger>Apply label</DropdownMenu.SubTrigger>
 				<DropdownMenu.SubContent class="p-0">
-					<Command.Root value={selectedLabels[i]?.id}>
+					<Command.Root value={selectedLabels[emailIndex]?.id}>
 						<Command.Input autofocus placeholder="Filter label..." class="h-9" />
 						<Command.List>
 							<Command.Empty>No label found.</Command.Empty>
 							<Command.Group>
-								{#each emailTags as tag, i}
+								{#each emailTags as tag}
 									<Command.Item
 										value={tag.id}
-                                        onSelect={() => {
-                                            closeAndFocusTrigger(i);
-                                            handleSelect(tag, i);
-                                        }}
-                                        >
+										onSelect={() => {
+											closeAndFocusTrigger(emailIndex);
+											handleSelect(tag, id, emailIndex);
+										}}
+									>
 										{tag.name}
 									</Command.Item>
 								{/each}
@@ -45,12 +43,14 @@
 					</Command.Root>
 				</DropdownMenu.SubContent>
 			</DropdownMenu.Sub>
-            <DropdownMenu.Item>Remind me</DropdownMenu.Item>
-            <DropdownMenu.Item>Mark as unread</DropdownMenu.Item>
-            <DropdownMenu.Separator />
-            <DropdownMenu.Item class="text-red-600">Ignore Transaction</DropdownMenu.Item>
+			<DropdownMenu.Item>Remind me</DropdownMenu.Item>
+			<DropdownMenu.Item>Mark as unread</DropdownMenu.Item>
+			<DropdownMenu.Item>Transaction details</DropdownMenu.Item>
+			<DropdownMenu.Separator />
+			<DropdownMenu.Item class="text-red-600">
+				Unlist Transaction
+				<DropdownMenu.Shortcut>⌘⌫</DropdownMenu.Shortcut>
+			</DropdownMenu.Item>
 		</DropdownMenu.Group>
-		<DropdownMenu.Separator />
-		<DropdownMenu.Item>Transaction details</DropdownMenu.Item>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

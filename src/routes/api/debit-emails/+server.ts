@@ -242,7 +242,77 @@ export const GET: RequestHandler = async ({ url }) => {
 
 
 
+// export const PATCH: RequestHandler = async ({ request }) => {
+//     try {
+//         const body = await request.json();
 
+//         // Validate the update payload
+//         const updateSchema = z.object({
+//             id: z.string().min(1, 'Invalid email ID'),
+//             tagID: z.string().uuid('Invalid tag ID').optional() // Only validate the tagID
+//         });
+
+//         const validated = updateSchema.parse(body);
+        
+
+
+//         // Verify the tag exists if provided
+//         if (validated.tagID) {
+//             const existingTag = await db
+//                 .select({ id: table.ex_tag.id })
+//                 .from(table.ex_tag)
+//                 .where(eq(table.ex_tag.id, validated.tagID))
+//                 .limit(1);
+
+        
+
+//             if (!existingTag.length) {
+//                 return json({
+//                     success: false,
+//                     error: 'Invalid tag ID',
+//                     details: validated.tagID
+//                 }, { status: 400 });
+//             }
+//         }
+
+//         // Update the email with the tagID
+//         const result = await db
+//             .update(table.debit_emails)
+//             .set({ ex_tag: validated.tagID }) // Only update the tagID
+//             .where(eq(table.debit_emails.id, validated.id))
+//             .returning();
+
+//         if (!result.length) {
+//             return json({
+//                 success: false,
+//                 error: 'Debit email not found'
+//             }, { status: 404 });
+//         }
+
+//         return json({
+//             success: true,
+//             data: result[0]
+//         });
+
+//     } catch (error) {
+//         if (error instanceof z.ZodError) {
+//             return json({
+//                 success: false,
+//                 error: 'Validation error',
+//                 details: error.errors.map(err => ({
+//                     path: err.path.join('.'),
+//                     message: err.message
+//                 }))
+//             }, { status: 400 });
+//         }
+
+//         console.error('Error updating debit email:', error);
+//         return json({
+//             success: false,
+//             error: 'Internal server error'
+//         }, { status: 500 });
+//     }
+// };
 
 
 
@@ -259,10 +329,9 @@ export const GET: RequestHandler = async ({ url }) => {
 export const PATCH: RequestHandler = async ({ request }) => {
     try {
         const body = await request.json();
-
         // Validate the update payload
         const updateSchema = z.object({
-            id: z.string().uuid('Invalid email ID'),
+            id: z.string().uuid().min(1,'Invalid email ID'),
             updates: z.object({
                 subject: z.string().min(1, 'Subject is required').optional(),
                 body: z.string().min(1, 'Body is required').optional(),
@@ -299,6 +368,7 @@ export const PATCH: RequestHandler = async ({ request }) => {
             amount: validated.updates.amount?.toString(),
             emailDate: validated.updates.emailDate ? new Date(validated.updates.emailDate) : undefined
         };
+
 
         // Update the email
         const result = await db

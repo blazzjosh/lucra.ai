@@ -10,9 +10,17 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { enhance } from '$app/forms';
-
+	import { formatMoney } from '$lib/utils.js';
 	import { EmailTable } from '$lib/components/tables/index.js';
+	import { Badge } from '$lib/components/ui/badge/index.js';
+	import Check from 'lucide-svelte/icons/check';
+	import X from 'lucide-svelte/icons/x';
+	import * as Popover from '$lib/components/ui/popover/index.js';
+	import Eye from 'lucide-svelte/icons/eye';
 
+	import { tagState } from '$lib/states/tag.svelte.js';
+
+	
 
 	let { form, data } = $props();
 
@@ -21,10 +29,9 @@
 		name: string;
 	};
 
-
 	// Initialize selectedLabels with the existing tags from emails
 	let selectedLabels = $state(
-		data.emails.map((email: { tag: {id:string, name:string} | null }) => {
+		data.emails.map((email: { tag: { id: string; name: string } | null }) => {
 			// Only look for a matching tag if email.ex_tag exists
 			if (email.tag) {
 				const matchingTag = data.emailTags.find((tag: { id: string }) => tag.id === email.tag?.id);
@@ -39,22 +46,26 @@
 	let triggerRefs = $state(Array(data.emails.length).fill(null));
 	let dialogOpen = $state(false);
 
-	const handleSelect = async (email: any, tag: Tag, index: number) => {
-		console.log(email);
+	const handleSelect = async (tag: Tag, emailId: string, index: number) => {
 		try {
 			const res = await fetch('/api/debit-emails', {
 				method: 'PATCH',
 				body: JSON.stringify({
-					id: email.id,
+					id: emailId,
 					updates: {
 						ex_tag: tag.id
 					}
 				})
 			});
-
+			await res.json();
 			if (res.ok) {
+				// console.log("here", selectedLabels);
+
 				// Update the selectedLabels array only after successful API call
 				selectedLabels[index] = tag;
+				console.log("here now", tag);
+				tagState.setTag(tag);
+				console.log("tagState1", tagState);
 			} else {
 				console.error('Failed to update tag');
 			}
@@ -79,7 +90,6 @@
 	};
 
 	// console.log(data.ex_tags);
-	
 </script>
 
 <!-- <Card items={data.analytics.tagSpending} /> -->
@@ -119,13 +129,20 @@
 							>
 								<div class="grid gap-4 py-4">
 									<div class="flex flex-col items-center gap-4">
-										<div class="flex flex-col w-full gap-1">
+										<div class="flex w-full flex-col gap-1">
 											<Label for="tag_name" class="">Tag Name:</Label>
-											<Input id="tag_name" name="tag_name" value="" class="col-span-3" required placeholder="Emergency Fund"/>
+											<Input
+												id="tag_name"
+												name="tag_name"
+												value=""
+												class="col-span-3"
+												required
+												placeholder="Emergency Fund"
+											/>
 											<p style="color: red">{form?.message ?? ''}</p>
 										</div>
 
-										<div class="flex flex-col w-full gap-1">
+										<div class="flex w-full flex-col gap-1">
 											<Label for="tag_description" class="">Tag Description:</Label>
 											<Textarea
 												placeholder="Savings for unforeseen expenses"
@@ -147,7 +164,7 @@
 					</Button>
 				</div>
 			</div>
-			<EmailTable emails={data.emails} emailTags={data.emailTags} {selectedLabels} {handleSelect} {closeAndFocusTrigger} />	
+			<EmailTable emails={data.emails} emailTags={data.emailTags} {selectedLabels} {handleSelect} {closeAndFocusTrigger} openStates={openStates} {triggerRefs} />	
 			 <!-- {#each data.emails as email, i}
 				<div
 					class="flex w-full flex-col items-start justify-between rounded-md border bg-white px-4 py-3 sm:flex-row sm:items-center"
@@ -194,12 +211,12 @@
 												<Command.List>
 													<Command.Empty>No label found.</Command.Empty>
 													<Command.Group>
-														{#each data.ex_tags as tag}
+														{#each data.emailTags as tag}
 															<Command.Item
 																value={tag.id}
 																onSelect={() => {
 																	closeAndFocusTrigger(i);
-																	handleSelect(email, tag, i);
+																	handleSelect(tag, email.id, i);
 																}}
 															>
 																{tag.name}
@@ -222,7 +239,7 @@
 						</DropdownMenu.Root>
 					</div>
 				</div>
-			{/each}  -->
+			{/each} -->
 		</div>
 	</div>
 </div>
