@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { cn } from '$lib/utils';
+	import { cn } from '$lib/utils.js';
 	import { AlignJustify, XIcon } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
-    import { Icons } from '$lib/components/icons';  
+    import { Icons } from '$lib/components/icons.js';  
     import { toggleMode } from 'mode-watcher';
 
 	const menuItem = [

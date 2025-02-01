@@ -74,7 +74,7 @@
 	
 </script>
 
-<Card.Root>
+<Card.Root class="">
 	<Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
 		<Card.Title class="text-base font-normal">Total Spendings</Card.Title>
 		<div class="flex items-center justify-between">
@@ -88,8 +88,8 @@
 	<Card.Content>
 		<div class="text-2xl font-bold">{formattedAmount()}</div>
 		<p class="text-xs text-muted-foreground">+180.1% from last month</p>
-		<div class="mt-4 h-[80px]">
-			<VisXYContainer data={chartData()} height={120} >
+		<div class="mt-4">
+			<VisXYContainer data={chartData()} height='160' >
 				<VisAxis type="x" {tickFormat}/>
 				<VisGroupedBar {x} {y} roundedCorners={4} />
 			</VisXYContainer>
