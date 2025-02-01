@@ -19,6 +19,8 @@ import  EllipsisVertical from 'lucide-svelte/icons/ellipsis-vertical';
 import  Eye from 'lucide-svelte/icons/eye'; 
 import  Check from 'lucide-svelte/icons/check'; 
 import  X from 'lucide-svelte/icons/x'; 
+import  AlignJustify from 'lucide-svelte/icons/align-justify';
+
 
 export type Icon  = SvelteComponent;
 
@@ -41,4 +43,5 @@ export const Icons = {
     Eye,
     Check,
     X,
+    AlignJustify
 }

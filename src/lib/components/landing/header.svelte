@@ -1,9 +1,8 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { cn } from '$lib/utils.js';
-	import { AlignJustify, XIcon } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
-    import { Icons } from '$lib/components/icons.js';  
+    import { Icons } from '$lib/components/icons/index.js';  
     import { toggleMode } from 'mode-watcher';
 
 	const menuItem = [
@@ -71,9 +70,9 @@
 			<button class="ml-6 md:hidden" use:toggleOverflowHidden>
 				<span class="sr-only">Toggle menu</span>
 				{#if hamburgerMenuIsOpen}
-					<XIcon  strokeWidth={1.4} class='text-gray-300'/>
+					<Icons.X  strokeWidth={1.4} class='text-gray-300'/>
 				{:else}
-					<AlignJustify strokeWidth={1.4} class='text-gray-300' />
+					<Icons.AlignJustify strokeWidth={1.4} class='text-gray-300' />
 				{/if}
 			</button>
 		    </div>
@@ -98,9 +97,9 @@
 			<button class="md:hidden" use:toggleOverflowHidden>
 				<span class="sr-only">Toggle menu</span>
 				{#if hamburgerMenuIsOpen}
-					<XIcon strokeWidth={1.4} class='text-gray-300'/>
+					<Icons.X strokeWidth={1.4} class='text-gray-300'/>
 				{:else}
-					<AlignJustify strokeWidth={1.4} class='text-gray-300'/>
+					<Icons.AlignJustify strokeWidth={1.4} class='text-gray-300'/>
 				{/if}
 			</button>
 		</div>
